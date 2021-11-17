@@ -18,7 +18,7 @@ def main():
         for j in range(i):
             print(f"{weight_on(i, i):.2f}", end=' ')
             # print(i, end=' ')
-        print('')
+        print(f'{i}')
 if __name__ == '__main__':
     main()
     
