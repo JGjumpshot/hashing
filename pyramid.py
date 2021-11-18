@@ -23,8 +23,8 @@ def main():
             print(f"{weight_on(i, j):.2f}", end=' ')
         print('')
     end_time = time.perf_counter()
-    print(counter)
-    print(end_time - start_time)
+    print(f"Number of function calls: {counter}")
+    print(f"Elapsed time: {end_time - start_time}")
 if __name__ == '__main__':
     main()
     
