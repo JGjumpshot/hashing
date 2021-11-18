@@ -10,16 +10,14 @@ def weight_on(row, column):
     return (second_person + 200 + (weight_on(row - 1, column - 1) + weight_on(row - 1, column))) / 2
 
 def main():
+    # print(weight_on(3, 1))
     argument = int(sys.argv[1])
     if (len(sys.argv) <= 1):
         raise IndexError("Please enter a valid argument")
         
     for i in range(argument):
-        print(i, end=' ')
-        if i == 0:
-            print(f"{0:.2f}", end=' ')
         for j in range(i + 1):
-            print(f"{weight_on(i, i):.2f}", end=' ')
+            print(f"{weight_on(i, j):.2f}", end=' ')
         print('')
 if __name__ == '__main__':
     main()
