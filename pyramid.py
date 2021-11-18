@@ -19,12 +19,12 @@ def main():
         raise IndexError("Please enter a valid argument")
     for i in range(argument):
         for j in range(i + 1):
-            start_time = time.perf_counter()    
             print(f"{weight_on(i, j):.2f}", end=' ')
         print('')
-    end_time = time.perf_counter()
     print(f"Number of function calls: {counter}")
-    print(f"Elapsed time: {end_time - start_time}")
-if __name__ == '__main__':
-    main()
     
+if __name__ == '__main__':
+    start_time = time.perf_counter()    
+    main()
+    end_time = time.perf_counter()
+    print(f"Elapsed time: {end_time - start_time}")
