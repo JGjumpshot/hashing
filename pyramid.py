@@ -17,9 +17,9 @@ def main():
     argument = int(sys.argv[1])
     if (len(sys.argv) <= 1):
         raise IndexError("Please enter a valid argument")
+    start_time = time.perf_counter()    
     for i in range(argument):
         for j in range(i + 1):
-            start_time = time.perf_counter()    
             print(f"{weight_on(i, j):.2f}", end=' ')
         print('')
     end_time = time.perf_counter()
