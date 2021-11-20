@@ -37,7 +37,7 @@ def main():
         for i in range(argument):
             for j in range(i + 1):
                 print(f"{weight_on(i, j):.2f}", end=' ')
-                file.write(f"{weight_on(i, j):.2f}")
+                # file.write(f"{weight_on(i, j):.2f}")
             print('')
         end_time = time.perf_counter()
         print(f"Number of function calls: {FUNCTION_COUNTER}")
@@ -46,7 +46,7 @@ def main():
         file.write(f"Elapsed time: {end_time - start_time}\n")
         print(f"Cache hits: {CACHE_COUNTER}")
         file.write(f"Cache hits: {CACHE_COUNTER}\n")
-        file.close()
+    file.close()
 if __name__ == '__main__':
     main()
     
