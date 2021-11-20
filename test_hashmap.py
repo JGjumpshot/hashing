@@ -21,8 +21,8 @@ from hashmap import HashMap
 
 def test_empty_map():
     hm = HashMap()
-    # assert hm.capacity() == 7
-    # assert hm.size() == 0
+    assert hm.capacity() == 7
+    assert hm.size() == 0
 
 # def test_remove():
 #     hm = HashMap()
