@@ -4,33 +4,91 @@ class HashMap:
         self.value = value
         self._size = 0
         self._capacity = 7
-        self._input = 0
-        self.arr = [[] for index in range(0, self._size)]
+        # self._input = 0
+        self.arr = [[] for index in range(0, self._capacity)]
+    DEFAULT_LOAD_FACTOR = 0.80
     def hash_function(self, key):
-        #self.size = 7
-        hashed_key = key[0] + key[1] % self._size
+        hashed_key = key[0] % self._capacity
         return hashed_key
     def set(self, key, val):
-        self._size += 1
-        # print(type(self.arr))
-        print(f"{len(self.arr)}\n")
-        for i in range(len(self.arr)):
-            print(self.arr[i])
-        # if self._size
-        if self._input > len(self.arr) // 2:
-            self._capacity = (2 * len(self.arr) - 1)
+        # print(f"{len(self.arr)}\n")
         h = self.hash_function(key)
-        self.arr[h] = val
-        self._input += 1
+
+        found = False
+        for idx, element in enumerate(self.arr[h]):
+            if len(element) == 2 and element[0] == key:
+                self.arr[h][idx] = (key, val)
+                found = True
+                break
+        if not found:
+            self.arr[h].append((key, val))
+        self._size += 1
+
+        loadFactor = (1 * self._size) / self._capacity
+        print(f"Current Load factor = {str(loadFactor)}")
+        if (loadFactor > self.DEFAULT_LOAD_FACTOR):
+            print(str(loadFactor) + " is greater than " + str(self.DEFAULT_LOAD_FACTOR))
+            print("Therefore Rehashing will be done.")
+ 
+            # Rehash
+            self.rehash()
+ 
+            print("New Size of Map: " + str(self._size))
+ 
+        print("Number of pairs in the Map: " + str(self._size))
+        print("Size of Map: " + str(self._size))
+        # self.arr[h] = val
+    def rehash(self):
+        print("\n***Rehashing Started***\n")
+ 
+        # The present bucket list is made temp
+        temp = self._capacity
+ 
+        # New bucketList of double the old size is created
+        new_capacity = (2 * self._capacity)
+ 
+        for i in range(2 * self._capacity):
+            # Initialised to null
+            new_capacity.append(None)
+ 
+        # Now size is made zero
+        # and we loop through all the nodes in the original bucket list(temp)
+        # and insert it into the new list
+        self._size = 0
+        self._capacity *= 2
+ 
+        for i in range(len(temp)):
+ 
+            # head of the chain at that index
+            head = temp[i]
+ 
+            while (head != None):
+                key = head.key
+                val = head.value
+ 
+                # calling the insert function for each node in temp
+                # as the new list is now the bucketArray
+                self.insert(key, val)
+                head = head.next
+ 
+        print("\n***Rehashing Ended***")
     def get(self, key):
         h = self.hash_function(key)
-        return self.arr[h]
+        if h > 0:
+            h = self.hash_function(key) - 1
+        print(f"h is: {h}")
+        for element in self.arr[h]:
+            if element[0] == key:
+                return element[1]
     def remove(self, key):
         h = self.hash_function(key)
-        self.arr[h] = None
+        if h > 0:
+            h = self.hash_function(key) - 1
+        for index, element in enumerate(self.arr[h]):
+            if element[0] == key:
+                del self.arr[h][index]
     def size(self):
         return self._size
-        return self.arr
     def capacity(self):
         return self._capacity
     def clear(self):
@@ -40,6 +98,9 @@ class HashMap:
 
 key2 = (3, 2)
 value2 = 44
+
+key3 = (4, 3)
+value3 = 77
 
 # key3 = (3, 2)
 # value3 = 55
@@ -51,8 +112,15 @@ value2 = 44
 # hm.remove(key2)
 # print(hm.arr)
 hm = HashMap()
+# print(hm.arr)
 hm.set(key2, value2)
-hm.size()
+hm.set(key3, value3)
+# print(hm.size)
+print(hm.arr)
+# print(hm.get(key2))
+# hm.remove(key2)
+# hm.remove(key3)
+print(hm.arr)
 # keys = [(r,r) for r in (range(10))]
 # print(keys)
 # values = list(range(1, 11))
