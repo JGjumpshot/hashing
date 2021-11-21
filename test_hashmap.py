@@ -24,17 +24,17 @@ def test_empty_map():
     assert hm.capacity() == 7
     assert hm.size() == 0
 
-# def test_remove():
-#     hm = HashMap()
-#     keys = [(r,r) for r in (range(10))]
-#     values = list(range(1, 11))
-#     for k,v in zip(keys,values):
-#         hm.set(k,v)
-#     hm.remove((3,3))
-#     print(hm)
-#     with pytest.raises(KeyError):
-#         hm.get((3,3))
-#     assert hm.get((5,5)) == 6
+def test_remove():
+    hm = HashMap()
+    keys = [(r,r) for r in (range(10))]
+    values = list(range(1, 11))
+    for k,v in zip(keys,values):
+        hm.set(k,v)
+    hm.remove((3,3))
+    print(hm)
+    with pytest.raises(KeyError):
+        hm.get((3,3))
+    assert hm.get((5,5)) == 6
 
 # def test_clear():
 #     hm = HashMap()

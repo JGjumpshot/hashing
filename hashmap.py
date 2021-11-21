@@ -4,33 +4,60 @@ class HashMap:
         self.value = value
         self._size = 0
         self._capacity = 7
-        self._input = 0
-        self.arr = [[] for index in range(0, self._size)]
-    def hash_function(self, key):
-        #self.size = 7
-        hashed_key = key[0] + key[1] % self._size
+        self.slots = [None] * self._capacity
+        self.data = [None] * self._capacity
+        # self.arr = [[] for index in range(0, self._size)]
+    def hash_function(self, key, size):
+        hashed_key = key[0] % size
         return hashed_key
     def set(self, key, val):
-        self._size += 1
-        # print(type(self.arr))
-        print(f"{len(self.arr)}\n")
-        for i in range(len(self.arr)):
-            print(self.arr[i])
-        # if self._size
-        if self._input > len(self.arr) // 2:
-            self._capacity = (2 * len(self.arr) - 1)
-        h = self.hash_function(key)
-        self.arr[h] = val
-        self._input += 1
+        hashvalue = self.hash_function(key, self._capacity)
+        if self.slots[hashvalue] == None:
+            self.slots[hashvalue] = key
+            self.data[hashvalue] = val
+        else:
+            if self.slots[hashvalue] == key:
+                self.data[hashvalue] = val
+            else:
+                nextslot = self.rehash(hashvalue, len(self.slots))
+                while self.slots[nextslot] != None and self.slots[nextslot] != key:
+                    nextslot = self.rehash(nextslot,len(self.slots))
+
+                if self.slots[nextslot] == None:
+                    self.slots[nextslot] = key
+                    self.data[nextslot] = val
+                else:
+                    self.data[nextslot] = val
+    def rehash(self,oldhash,size):
+        return (oldhash * 2) - 1 % size
     def get(self, key):
-        h = self.hash_function(key)
-        return self.arr[h]
+        startslot = self.hash_function(key,len(self.slots))
+
+        data = None
+        stop = False
+        found = False
+        position = startslot
+        while self.slots[position] != None and not found and not stop:
+            if self.slots[position] == key:
+                found = True
+                data = self.data[position]
+            else:
+                position=self.rehash(position,len(self.slots))
+            if position == startslot:
+                stop = True
+        if found is not False:
+            print(f"data$$${data}")
+            return data
+        else: 
+            return found
     def remove(self, key):
-        h = self.hash_function(key)
-        self.arr[h] = None
+        remove = self.get(key)
+        if remove is not False:
+            self.data[key] = None
+        else:
+            raise KeyError('Key not found')
     def size(self):
         return self._size
-        return self.arr
     def capacity(self):
         return self._capacity
     def clear(self):
@@ -51,10 +78,11 @@ value2 = 44
 # hm.remove(key2)
 # print(hm.arr)
 hm = HashMap()
-hm.set(key2, value2)
-hm.size()
-# keys = [(r,r) for r in (range(10))]
-# print(keys)
-# values = list(range(1, 11))
-# for k,v in zip(keys,values):
-#     hm.set(k,v)
+# hm.set(key2, value2)
+# print(hm.get(key2))
+# print(hm.data)
+keys = [(r,r) for r in (range(10))]
+print(keys)
+values = list(range(1, 11))
+for k,v in zip(keys,values):
+    hm.set(k,v)
