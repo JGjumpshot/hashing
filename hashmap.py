@@ -20,6 +20,8 @@ class HashMap:
         self.arr[h] = None
     def size(self):
         return 0
+    def capacity(self):
+        return self._capacity
 key = (0, 0)
 value = 27
 
