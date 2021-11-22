@@ -3,7 +3,7 @@ class HashMap:
         self.key = key
         self.value = value
         self._size = 0
-        self._capacity = 7
+        self._capacity = 20
         # self._input = 0
         self.arr = [[] for index in range(0, self._capacity)]
     DEFAULT_LOAD_FACTOR = 0.80
@@ -42,14 +42,14 @@ class HashMap:
         print("\n***Rehashing Started***\n")
  
         # The present bucket list is made temp
-        temp = self._capacity
+        temp = self.arr
  
         # New bucketList of double the old size is created
-        new_capacity = (2 * self._capacity)
- 
-        for i in range(2 * self._capacity):
+        slots = (2 * len(self.arr))
+        print(slots)
+        for i in range(2 * self._capacity - 1):
             # Initialised to null
-            new_capacity.append(None)
+            temp.append([])
  
         # Now size is made zero
         # and we loop through all the nodes in the original bucket list(temp)
@@ -62,14 +62,14 @@ class HashMap:
             # head of the chain at that index
             head = temp[i]
  
-            while (head != None):
-                key = head.key
-                val = head.value
+            while (head != []):
+                key = head[i][0]
+                val = head[i][1]
  
                 # calling the insert function for each node in temp
                 # as the new list is now the bucketArray
-                self.insert(key, val)
-                head = head.next
+                self.set(key, val)
+                head = temp[i + 1]
  
         print("\n***Rehashing Ended***")
     def get(self, key):
@@ -80,6 +80,8 @@ class HashMap:
         for element in self.arr[h]:
             if element[0] == key:
                 return element[1]
+            else:
+                raise KeyError(element[0])
     def remove(self, key):
         h = self.hash_function(key)
         if h > 0:
@@ -113,14 +115,18 @@ value3 = 77
 # print(hm.arr)
 hm = HashMap()
 # print(hm.arr)
-hm.set(key2, value2)
-hm.set(key3, value3)
+# hm.set(key2, value2)
+# hm.set(key3, value3)
+# hm.set((5,4), 23)
+# hm.set((2,1), 71)
+# hm.set((2,2), 12)
+# hm.set((2,0), 34)
 # print(hm.size)
-print(hm.arr)
+# print(hm.arr)
 # print(hm.get(key2))
 # hm.remove(key2)
 # hm.remove(key3)
-print(hm.arr)
+print(hm.get((3,3)))
 # keys = [(r,r) for r in (range(10))]
 # print(keys)
 # values = list(range(1, 11))
