@@ -19,10 +19,10 @@ enter.
 import pytest
 from hashmap import HashMap
 
-# def test_empty_map():
-#     hm = HashMap()
-#     assert hm.capacity() == 7
-#     assert hm.size() == 0
+def test_empty_map():
+    hm = HashMap()
+    assert hm.capacity() == 7
+    assert hm.size() == 0
 
 def test_remove():
     hm = HashMap()
@@ -36,25 +36,25 @@ def test_remove():
         hm.get((3,3))
     assert hm.get((5,5)) == 6
 
-# def test_clear():
-#     hm = HashMap()
-#     keys = [(r,r) for r in (range(10))]
-#     values = list(range(1, 11))
-#     for k,v in zip(keys,values):
-#         hm.set(k,v)
-#     hm.clear()
-#     assert hm.capacity() == 7
-#     assert hm.size() == 0
+def test_clear():
+    hm = HashMap()
+    keys = [(r,r) for r in (range(10))]
+    values = list(range(1, 11))
+    for k,v in zip(keys,values):
+        hm.set(k,v)
+    hm.clear()
+    assert hm.capacity() == 7
+    assert hm.size() == 0
 
-# def test_keys():
-#     hm = HashMap()
-#     keys = [(r,r) for r in (range(10))]
-#     values = list(range(1, 11))
-#     for k,v in zip(keys,values):
-#         hm.set(k,v)
-#     keys2 = hm.keys()
-#     keys2.sort()
-#     assert keys == keys2
+def test_keys():
+    hm = HashMap()
+    keys = [(r,r) for r in (range(10))]
+    values = list(range(1, 11))
+    for k,v in zip(keys,values):
+        hm.set(k,v)
+    keys2 = hm.keys()
+    keys2.sort()
+    assert keys == keys2
 
 # def test_get_set():
 #     hm = HashMap()
