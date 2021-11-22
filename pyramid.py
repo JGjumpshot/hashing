@@ -1,8 +1,9 @@
 """module doc-string"""
 import sys
 import time
+from hashmap import HashMap
 FUNCTION_COUNTER = 0
-cache = {}
+cache = HashMap()
 CACHE_COUNTER = 0
 def weight_on(row, column):
     """weight on function"""
