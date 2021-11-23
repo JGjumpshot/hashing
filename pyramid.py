@@ -13,20 +13,23 @@ def weight_on(row, column):
     FUNCTION_COUNTER += 1
     second_person = 200
     key = (row, column)
-    if key in cache:
+    try:
+        got_my_key = cache.get(key)
         CACHE_COUNTER += 1
-        return cache[key]
-    if column == 0 and row == 0:
-        cache[key] = 0
-        return 0
-    if column == 0:
-        cache[key] = second_person / 2 + weight_on(row - 1, 0) / 2
-        return second_person / 2 + weight_on(row - 1, 0) / 2
-    if column == row:
-        cache[key] = second_person / 2 + weight_on(row - 1, column - 1) / 2
-        return second_person / 2 + weight_on(row - 1, column - 1) / 2
-    cache[key] = (second_person + (weight_on(row - 1, column - 1) / 2 + weight_on(row - 1, column) / 2))
-    return (second_person + (weight_on(row - 1, column - 1) / 2 + weight_on(row - 1, column) / 2))
+        return cache.get(key)
+    except:
+    
+        if column == 0 and row == 0:
+            cache.set(key, 0)
+            return 0
+        if column == 0:
+            cache.set(key, second_person / 2 + weight_on(row - 1, 0) / 2)
+            return second_person / 2 + weight_on(row - 1, 0) / 2
+        if column == row:
+            cache.set(key, second_person / 2 + weight_on(row - 1, column - 1) / 2)
+            return second_person / 2 + weight_on(row - 1, column - 1) / 2
+        cache.set(key, (second_person + (weight_on(row - 1, column - 1) / 2 + weight_on(row - 1, column) / 2)))
+        return (second_person + (weight_on(row - 1, column - 1) / 2 + weight_on(row - 1, column) / 2))
 
 def main():
     """main function"""
@@ -38,7 +41,8 @@ def main():
         for i in range(argument):
             for j in range(i + 1):
                 print(f"{weight_on(i, j):.2f}", end=' ')
-                # file.write(f"{weight_on(i, j):.2f}")
+                file.write(f"{weight_on(i, j):.2f} ")
+            file.write('\n')
             print('')
         end_time = time.perf_counter()
         print(f"Number of function calls: {FUNCTION_COUNTER}")

@@ -1,4 +1,3 @@
-# import pytest
 """hashmap adt"""
 class HashMap:
     def __init__(self, key=None, value=None):
@@ -30,7 +29,7 @@ class HashMap:
         self._size += 1
 
         load_factor = (1 * self._size) / self._capacity
-        print(f"Current Load factor = {str(load_factor)}")
+        # print(f"Current Load factor = {str(load_factor)}")
         if load_factor > self.DEFAULT_LOAD_FACTOR:
             self.rehash(h, self._capacity)
 
